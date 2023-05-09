@@ -36,7 +36,6 @@ public class GrafoDirigido<T> implements Grafo<T> {
 			Arco<T> newArco = new Arco<>(verticeId1, verticeId2, etiqueta);
 			grafo.get(verticeId1).add(newArco);
 		}
-
 	}
 
 	@Override

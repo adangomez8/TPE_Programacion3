@@ -18,7 +18,7 @@ public class Main {
         gd.agregarArco(34, 16, "te");
         gd.agregarArco(52, 16, "ce");
 
-        System.out.println("Contiene vértice 34: " + gd.contieneVertice( 34));
+       /* System.out.println("Contiene vértice 34: " + gd.contieneVertice( 34));
         System.out.println("Contiene vértice 61: " + gd.contieneVertice(61));
         System.out.println("Existe arco (16, 7) :" + gd.existeArco(16, 7));
         System.out.println("Existe arco (7, 16) :" + gd.existeArco(7, 16));
@@ -69,7 +69,7 @@ public class Main {
          *
          * */
 
-        gd.borrarVertice(34);
+        /*gd.borrarVertice(34);
         System.out.println("Contiene vértice 16: " + gd.contieneVertice( 16));
         System.out.println("Contiene vértice 34: " + gd.contieneVertice(34));
         System.out.println("Existe arco (16, 7) :" + gd.existeArco(16, 7));
@@ -113,6 +113,31 @@ public class Main {
         while (iteradorArcosDelVertice7_a.hasNext()) {
             System.out.print(iteradorArcosDelVertice7_a.next() + " ");
         }
-        System.out.println();
+        System.out.println();*/
+
+        /**
+         *
+         *
+         * PARA CONFIRMAR SI HAY CICLO
+         *
+         *
+         *
+         * */
+
+
+        /*gd.agregarVertice(16);
+        gd.agregarVertice(34);
+        gd.agregarVertice(52);
+
+        gd.agregarArco(16, 52, "a");
+        gd.agregarArco(52, 34, "b");
+        gd.agregarArco(34, 16, "c");*/
+
+
+        ServicioDFS dfs = new ServicioDFS<>(gd);
+        System.out.println("Servicio Depth First Search: " + dfs.dfsForest());
+
+        ServicioBFS bfs = new ServicioBFS<>(gd);
+        System.out.println("Servicio Breadth First Search: " + bfs.bfsForest());
     }
 }
