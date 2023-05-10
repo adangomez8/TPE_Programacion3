@@ -56,7 +56,8 @@ public class ServicioBFS<T> {
 				int adyAux = itAdy.next();
 				if (noVisitados.contains(adyAux)) {
 					colaVertices.offer(adyAux);
-					noVisitados.remove(noVisitados.get(0));
+					int aBorrar = noVisitados.indexOf(adyAux);
+					noVisitados.remove(aBorrar);
 				}
 			}
 		}
