@@ -2,17 +2,11 @@ package Programacion3.src.tpe;
 
 import java.util.*;
 
-/**
- *
- *
- * Esta mal si agrego el "<T>" al nombre de la clase??
- *
- * */
-public class ServicioBFS<T> {
+public class ServicioBFS {
 
-	private Grafo<T> grafo;
+	private Grafo<?> grafo;
 	
-	public ServicioBFS(Grafo<T> grafo) {
+	public ServicioBFS(Grafo<?> grafo) {
 		this.grafo = grafo;
 	}
 	
@@ -21,9 +15,10 @@ public class ServicioBFS<T> {
 		return bfsForest(this.grafo);
 	}
 
-	private List<Integer> bfsForest(Grafo<T> grafo){
+	private List<Integer> bfsForest(Grafo<?> grafo){
 
-		ArrayList<Integer> noVisitados = new ArrayList<>();
+		//HASHSET
+		HashSet<Integer> noVisitados = new HashSet<>();
 		List<Integer> resultado = new ArrayList<>();
 
 		for(Iterator<Integer> iteradorDeVertices = grafo.obtenerVertices(); iteradorDeVertices.hasNext();){
@@ -32,14 +27,14 @@ public class ServicioBFS<T> {
 		}
 
 		while (!noVisitados.isEmpty()){
-			int v = noVisitados.get(0);
+			int v = noVisitados.iterator().next();
 			resultado.addAll(bfs(grafo, v, noVisitados));
 		}
 
 		return resultado;
 	}
 
-	private List<Integer> bfs(Grafo<T> grafo, Integer v, ArrayList<Integer> noVisitados) {
+	private List<Integer> bfs(Grafo<?> grafo, Integer v, HashSet<Integer> noVisitados) {
 
 		List<Integer> visitados = new ArrayList<>();
 
@@ -56,8 +51,7 @@ public class ServicioBFS<T> {
 				int adyAux = itAdy.next();
 				if (noVisitados.contains(adyAux)) {
 					colaVertices.offer(adyAux);
-					int aBorrar = noVisitados.indexOf(adyAux);
-					noVisitados.remove(aBorrar);
+					noVisitados.remove(adyAux);
 				}
 			}
 		}

@@ -134,10 +134,10 @@ public class Main {
         gd.agregarArco(34, 16, "c");*/
 
 
-        ServicioDFS dfs = new ServicioDFS<>(gd);
+        ServicioDFS dfs = new ServicioDFS(gd);
         System.out.println("Servicio Depth First Search: " + dfs.dfsForest());
 
-        ServicioBFS bfs = new ServicioBFS<>(gd);
+        ServicioBFS bfs = new ServicioBFS(gd);
         System.out.println("Servicio Breadth First Search: " + bfs.bfsForest());
     }
 }
