@@ -1,8 +1,6 @@
 package Programacion3.src.tpe;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class ServicioCaminos {
 
@@ -21,33 +19,44 @@ public class ServicioCaminos {
 
 	public List<List<Integer>> caminos() {
 
-		 ArrayList res = new ArrayList<>();
-		 Iterator<Integer> itAdy = grafo.obtenerAdyacentes(origen);
-/**
- *
- *
- *
- * RECURSIVO*/
-
-		 while (itAdy.hasNext()) {
-			 int cont = 0;
-			 ArrayList<Integer> caminos = new ArrayList<>();
-			 ArrayList<Arco> camins = new ArrayList<>();
-
-			 caminos.add(origen);
-
-			 while (cont < lim) {
-				 caminos.add(itAdy.next());
-				 itAdy = grafo.obtenerAdyacentes(itAdy.next());
-				 cont++;
-
-			 }
-			 if (caminos.size() == lim) {
-				 res.add(caminos);
-			 }
-		 }
-
-		return res;
+		return caminos(grafo, origen, destino, lim);
 	}
 
+	public List<List<Integer>> caminos(Grafo<?> grafo, int origen, int destino, int lim) {
+		List<List<Integer>> resultados = new ArrayList<>();
+		List<Integer> caminoActual = new ArrayList<>();
+		Set<Integer> nodosVisitados = new HashSet<>();
+		List<Arco> arcosVisitados = new ArrayList<>();
+
+		caminoActual.add(origen);
+		nodosVisitados.add(origen);
+
+		caminosRecursivo(grafo, origen, destino, caminoActual, nodosVisitados, arcosVisitados, resultados, lim);
+
+		return resultados;
+	}
+
+	private void caminosRecursivo(Grafo<?> grafo, int origen, int destino, List<Integer> caminoActual, Set<Integer> nodosVisitados, List<Arco> arcosVisitados, List<List<Integer>> resultados, int lim) {
+		if (origen == destino) {
+			resultados.add(new ArrayList<>(caminoActual));
+		} else {
+			if (arcosVisitados.size() < lim) {
+				for (Iterator<Integer> it = grafo.obtenerAdyacentes(origen); it.hasNext(); ) {
+					Integer adyacente = it.next();
+					Arco arco = grafo.obtenerArco(origen, adyacente);
+					if (arco != null && !arcosVisitados.contains(arco)) {
+						arcosVisitados.add(arco);
+						if (!nodosVisitados.contains(adyacente)) {
+							caminoActual.add(adyacente);
+							nodosVisitados.add(adyacente);
+							caminosRecursivo(grafo, adyacente, destino, caminoActual, nodosVisitados, arcosVisitados, resultados, lim);
+							nodosVisitados.removeAll(nodosVisitados);
+							caminoActual.remove(caminoActual.size() - 1);
+						}
+						arcosVisitados.remove(arco);
+					}
+				}
+			}
+		}
+	}
 }

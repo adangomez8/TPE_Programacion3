@@ -8,7 +8,7 @@ public class Main {
 
         GrafoDirigido<String> gd = new GrafoDirigido<>();
 
-        gd.agregarVertice(16);
+        /*gd.agregarVertice(16);
         gd.agregarVertice(34);
         gd.agregarVertice(52);
         gd.agregarVertice(7);
@@ -16,7 +16,7 @@ public class Main {
         gd.agregarArco(16, 7, "pe");
         gd.agregarArco(34, 7, "se");
         gd.agregarArco(34, 16, "te");
-        gd.agregarArco(52, 16, "ce");
+        gd.agregarArco(52, 16, "ce");*/
 
        /* System.out.println("Contiene vértice 34: " + gd.contieneVertice( 34));
         System.out.println("Contiene vértice 61: " + gd.contieneVertice(61));
@@ -115,29 +115,35 @@ public class Main {
         }
         System.out.println();*/
 
-        /**
-         *
-         *
-         * PARA CONFIRMAR SI HAY CICLO
-         *
-         *
-         *
-         * */
 
-
-        /*gd.agregarVertice(16);
-        gd.agregarVertice(34);
-        gd.agregarVertice(52);
-
-        gd.agregarArco(16, 52, "a");
-        gd.agregarArco(52, 34, "b");
-        gd.agregarArco(34, 16, "c");*/
-
-
-        ServicioDFS dfs = new ServicioDFS(gd);
+        /*ServicioDFS dfs = new ServicioDFS(gd);
         System.out.println("Servicio Depth First Search: " + dfs.dfsForest());
 
         ServicioBFS bfs = new ServicioBFS(gd);
-        System.out.println("Servicio Breadth First Search: " + bfs.bfsForest());
+        System.out.println("Servicio Breadth First Search: " + bfs.bfsForest());*/
+
+        gd.agregarVertice(3);
+        gd.agregarVertice(5);
+        gd.agregarVertice(7);
+        gd.agregarVertice(4);
+        gd.agregarVertice(15);
+        gd.agregarVertice(18);
+        gd.agregarVertice(10);
+
+        gd.agregarArco(3, 5, null);
+        gd.agregarArco(5, 15, null);
+        gd.agregarArco(5, 10, null);
+        gd.agregarArco(15, 10, null);
+        gd.agregarArco(3, 7, null);
+        gd.agregarArco(7, 18, null);
+        gd.agregarArco(18, 10, null);
+        gd.agregarArco(3, 4, null);
+        gd.agregarArco(4, 7, null);
+        gd.agregarArco(3, 10, null);
+        gd.agregarArco(7, 3, null);
+
+        ServicioCaminos sc = new ServicioCaminos(gd, 3, 10, 3);
+
+        System.out.println(sc.caminos());
     }
 }
