@@ -5,11 +5,11 @@ import java.util.*;
 public class ServicioBFS {
 
 	private Grafo<?> grafo;
-	
+
 	public ServicioBFS(Grafo<?> grafo) {
 		this.grafo = grafo;
 	}
-	
+
 	public List<Integer> bfsForest() {
 		// Resolver BFS
 		return bfsForest(this.grafo);
@@ -22,12 +22,12 @@ public class ServicioBFS {
 		List<Integer> resultado = new ArrayList<>();
 
 		for(Iterator<Integer> iteradorDeVertices = grafo.obtenerVertices(); iteradorDeVertices.hasNext();){
-			int verticeAux = iteradorDeVertices.next();
+			Integer verticeAux = iteradorDeVertices.next();
 			noVisitados.add(verticeAux);
 		}
 
 		while (!noVisitados.isEmpty()){
-			int v = noVisitados.iterator().next();
+			Integer v = noVisitados.iterator().next();
 			resultado.addAll(bfs(grafo, v, noVisitados));
 		}
 
@@ -44,11 +44,11 @@ public class ServicioBFS {
 
 		while (!colaVertices.isEmpty()) {
 			//Poll devuelve y elimina el primer elemento
-			int aux = colaVertices.poll();
+			Integer aux = colaVertices.poll();
 			visitados.add(aux);
 
 			for (Iterator<Integer> itAdy = grafo.obtenerAdyacentes(aux); itAdy.hasNext(); ) {
-				int adyAux = itAdy.next();
+				Integer adyAux = itAdy.next();
 				if (noVisitados.contains(adyAux)) {
 					colaVertices.offer(adyAux);
 					noVisitados.remove(adyAux);
@@ -58,7 +58,4 @@ public class ServicioBFS {
 
 		return visitados;
 	}
-
-
-
 }

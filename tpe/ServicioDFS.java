@@ -2,51 +2,38 @@ package Programacion3.src.tpe;
 import java.util.*;
 public class ServicioDFS {
 	private Grafo<?> grafo;
-	public ServicioDFS(Grafo<?> grafo) {		this.grafo = grafo;	}
-
+	public ServicioDFS(Grafo grafo) {
+		this.grafo = grafo;
+	}
 	public List<Integer> dfsForest() {
 
 		return dfs(this.grafo);
 	}
-	private List<Integer> dfs(Grafo<?> grafo){
 
-		List<Integer> resultado = new ArrayList<>();
+	public List<Integer> dfs(Grafo<?> grafo) {
+		Set<Integer> visitados = new HashSet<>();//AMARILLO
+		List<Integer> resultado = new ArrayList<>();//NEGRO
 
-		Queue<Integer> verticesPendientes = new LinkedList<>(); //BLANCO
-		List<Integer> visitados = new ArrayList<>(); //AMARILLO
-
-		//TODOS BLANCOS
-		for (Iterator<Integer> it = grafo.obtenerVertices(); it.hasNext();) {
-			verticesPendientes.add(it.next());
+		for (Iterator<Integer> it = grafo.obtenerVertices(); it.hasNext(); ) {
+			Integer vertice = it.next();
+			if (!visitados.contains(vertice)) {
+				dfsVisit(grafo, vertice, visitados, resultado);
+			}
 		}
-
-		for(Integer verticeBlanco : verticesPendientes){
-			visitados.add(verticeBlanco);
-			resultado.addAll(dfsVisit(grafo, verticeBlanco, visitados));
-
-		}
-
+		Collections.reverse(resultado); // Invertir el orden para obtener el orden topológico
 		return resultado;
 	}
 
-	private List<Integer> dfsVisit(Grafo<?> grafo, int vertice, List<Integer> visitados) {
-
-		List<Integer> recorridos = new ArrayList<>(); //NEGRO
+	private void dfsVisit(Grafo<?> grafo, Integer vertice, Set<Integer> visitados, List<Integer> resultado) {
 
 		visitados.add(vertice);
 
 		for (Iterator<Integer> it = grafo.obtenerAdyacentes(vertice); it.hasNext(); ) {
-
-			int adyacenteDelVertice = it.next();
-
-			//SI ES BLANCO
+			Integer adyacenteDelVertice = it.next();
 			if (!visitados.contains(adyacenteDelVertice)) {
-				List<Integer> subarbol = dfsVisit(grafo, adyacenteDelVertice, visitados);
-				recorridos.addAll(subarbol);
+				dfsVisit(grafo, adyacenteDelVertice, visitados, resultado);
 			}
 		}
-
-		recorridos.add(vertice);
-		return recorridos;
+		resultado.add(vertice);
 	}
 }
