@@ -13,6 +13,9 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		this.grafo = new HashMap<>();
 	}
 
+	/**
+	 * Complejidad: O(1) porque es independiente a la cantidad de vértices que tenga el grafo
+	 * */
 	@Override
 	public void agregarVertice(int verticeId) {
 		if(!grafo.containsKey(verticeId)) {
@@ -20,12 +23,19 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		}
 	}
 
+	/**
+	 * Complejidad: O(1) porque es independiente a la cantidad de vértices que tenga el grafo
+	 * */
 	@Override
 	public void borrarVertice(int verticeId) {
 
 			grafo.remove(verticeId);
 	}
 
+	/**
+	 * Complejidad: O(1) debido que se accede a los valores independientemente la cantidad de vértices
+	 * que tenga el grafo
+	 * */
 	@Override
 	public void agregarArco(int verticeId1, int verticeId2, T etiqueta) {
 		crearArco(verticeId1, verticeId2, etiqueta);
@@ -38,6 +48,10 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		}
 	}
 
+
+	/**
+	 * Complejidad: O(n) donde n es la cantidad de adyacentes que posee el vértice
+	 * */
 	@Override
 	public void borrarArco(int verticeId1, int verticeId2) {
 
@@ -66,7 +80,10 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
 		return grafo.containsKey(verticeId);
 	}
-
+	/**
+	 * Complejidad: O(n) donde n es la cantidad de arcos debido a que itera por cada uno de ellos para
+	 * confirmar si contiene la información pasada por parámetro
+	 * */
 	@Override
 	public boolean existeArco(int verticeId1, int verticeId2) {
 
@@ -84,6 +101,10 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		return false;
 	}
 
+
+	/**
+	 * Complejidad: O(n) donde n es la cantidad de arcos que tiene el vértice
+	 * */
 	@Override
 	public Arco<T> obtenerArco(int verticeId1, int verticeId2) {
 
@@ -101,12 +122,19 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		return null;
 	}
 
+
+	/**
+	 * Complejidad: O(1) debido que se accede a los valores independientemente del tamaño del mapa
+	 * */
 	@Override
 	public int cantidadVertices() {
 
 		return grafo.size();
 	}
 
+	/**
+	 * Complejidad: O(n) donde n ya que itera los adyacentes de cada vertice
+	 * */
 	@Override
 	public int cantidadArcos() {
 
@@ -118,12 +146,19 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		return totalArcos;
 	}
 
+	/**
+	 * Complejidad: O(n) donde n es la cantidad de vertices del grafo debido a que itera por cada uno de ellos
+	 * */
 	@Override
 	public Iterator<Integer> obtenerVertices() {
 
 		return grafo.keySet().iterator();
 	}
 
+
+	/**
+	 * Complejidad: O(n) donde n es la cantidad de adyacentes debido a que itera por cada uno de ellos
+	 * */
 	@Override
 	public Iterator<Integer> obtenerAdyacentes(int verticeId) {
 
@@ -137,6 +172,9 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		return adyacentes.iterator();
 	}
 
+	/**
+	 * Complejidad: O(n) debido a que itera los adyacentes de cada vértice
+	 * */
 	@Override
 	public Iterator<Arco<T>> obtenerArcos() {
 
@@ -147,6 +185,9 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		return arcos.iterator();
 	}
 
+	/**
+	 * Complejidad: O(n) debido a que itera los adyacentes de cada vértice
+	 * */
 	@Override
 	public Iterator<Arco<T>> obtenerArcos(int verticeId) {
 

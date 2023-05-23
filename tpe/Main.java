@@ -142,7 +142,7 @@ public class Main {
         gd.agregarArco(3, 10, null);
         gd.agregarArco(7, 3, null);
 
-        ServicioCaminos sc = new ServicioCaminos(gd, 3, 10, 3);
+        ServicioCaminos sc = new ServicioCaminos(gd, 3, 5, 3);
 
         System.out.println(sc.caminos());
     }

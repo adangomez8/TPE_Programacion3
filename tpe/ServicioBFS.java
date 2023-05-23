@@ -15,6 +15,10 @@ public class ServicioBFS {
 		return bfsForest(this.grafo);
 	}
 
+	/**
+	 * Complejidad: O(|V|+|A|) debido a que pasa una vez por cada vértice, y como mucho una vez cada arco
+	 * */
+
 	private List<Integer> bfsForest(Grafo<?> grafo){
 
 		//HASHSET

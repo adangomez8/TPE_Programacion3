@@ -10,6 +10,9 @@ public class ServicioDFS {
 		return dfs(this.grafo);
 	}
 
+	/**
+	 * Complejidad: O(|V|+|A|) debido a que pasa una vez por cada vértice, y como mucho una vez cada arco
+	 * */
 	public List<Integer> dfs(Grafo<?> grafo) {
 		Set<Integer> visitados = new HashSet<>();//AMARILLO
 		List<Integer> resultado = new ArrayList<>();//NEGRO
