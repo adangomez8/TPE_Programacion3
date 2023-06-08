@@ -23,5 +23,9 @@ public class Tubo {
     public int getDistancia() {
         return distancia;
     }
+    
+    public String toString() {
+    	return estacion1 + ", " + estacion2 + ", " + distancia;
+    }
 
 }

@@ -71,6 +71,11 @@ public class Grafo {
 		return false;
 	}
     
+    public int cantidadVertices() {
+
+		return grafo.size();
+	}
+    
     public Tubo obtenerTubo(String estacion1, String estacion2) {
     	
     	List<Tubo> tubos = grafo.get(estacion1);

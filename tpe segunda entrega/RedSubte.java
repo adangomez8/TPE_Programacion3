@@ -1,7 +1,6 @@
 package tpe;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,11 +13,9 @@ public class RedSubte {
 	private List<Tubo> solucion;
 	private int totalLargoTunel;
 
-	public RedSubte(HashMap<Integer, String> nombreEstaciones) {
-		this.cantEstaciones = 0;
-		for (Iterator<String> itAdy = grafo.obtenerVertices(); itAdy.hasNext();) {
-			this.cantEstaciones++;
-		}
+	public RedSubte(Grafo grafo) {
+		this.grafo = grafo;
+		this.cantEstaciones = grafo.cantidadVertices();
 		this.visitados = new ArrayList<>();
 		this.recorrido = new ArrayList<>();
 		this.solucion = new ArrayList<>();
@@ -27,23 +24,21 @@ public class RedSubte {
 
 	public List<Tubo> construirRedSubte() {
 
-		return construirRedSubte(this.grafo);
-	}
+		/*Iterator<String> itEstaciones = grafo.obtenerVertices();
+		String estacion = itEstaciones.next();*/
 
-	private List<Tubo> construirRedSubte(Grafo grafo) {
+		/*Iterator<String> itAdy = grafo.obtenerAdyacentes(estacion);
+		String adyacente = itAdy.next();*/
 
-		Iterator<String> itEstaciones = grafo.obtenerVertices();
-		String estacion = itEstaciones.next();
-
-		Iterator<String> itAdy = grafo.obtenerAdyacentes(estacion);
-		String adyacente = itAdy.next();
-
-		while (itEstaciones.hasNext()) {
+		for (Iterator<String> itEstaciones = grafo.obtenerVertices(); itEstaciones.hasNext();) {
+			String estacion = itEstaciones.next();
+			Iterator<String> itAdy = grafo.obtenerAdyacentes(estacion);
+			String adyacente = itAdy.next();
 			visitados.add(estacion);
-			backtracking(grafo, estacion, adyacente);
+			backtracking(estacion, adyacente);
 			visitados.remove(estacion);
 		}
-		
+
 		/**
 		 * 
 		 * 
@@ -52,54 +47,51 @@ public class RedSubte {
 		 * 
 		 * */
 		borrarArcosInnecesarios();
-		
-		
 
 		return solucion;
 	}
 
-	private void backtracking(Grafo grafo, String PrimeraEstation, String siguienteEstacion) {
+	private void backtracking(String primeraEstacion, String siguienteEstacion) {
 
-		if (recorrido.size() == cantEstaciones-1) {
-			int largoTunel = calcularLargoTotalDeTunel(grafo);
+		if (visitados.size() == cantEstaciones && !primeraEstacion.equals(siguienteEstacion)) {
+			int largoTunel = calcularLargoTotalDeTunel();
 			if (totalLargoTunel == -1 || largoTunel < totalLargoTunel) {
 				totalLargoTunel = largoTunel;
 				solucion = new ArrayList<>(recorrido);
 			}
 		} else {
 
-			visitados.add(siguienteEstacion);
-			Tubo tubo = grafo.obtenerTubo(PrimeraEstation, siguienteEstacion);
-			recorrido.add(tubo);
 			Iterator<String> itAdy = grafo.obtenerAdyacentes(siguienteEstacion);
-
 			while (itAdy.hasNext()) {
-				if (!recorrido.contains(tubo) && !visitados.contains(itAdy.next())) {
-					backtracking(grafo, PrimeraEstation, itAdy.next());
-					visitados.remove(siguienteEstacion);
+				String ady = itAdy.next();
+				if (!visitados.contains(ady)) {
+					visitados.add(ady);
+					Tubo tubo = grafo.obtenerTubo(primeraEstacion, ady);
+					recorrido.add(tubo);
+					backtracking(primeraEstacion, ady);
+					visitados.remove(ady);
 					recorrido.remove(recorrido.size() - 1);
 				}
 			}
 
 		}
 	}
-	
+
 	private void borrarArcosInnecesarios() {
-		
+
 		Iterator<String> vertices = grafo.obtenerVertices();
-		
-		
-		while(vertices.hasNext()) {
+
+		while (vertices.hasNext()) {
 			Iterator<String> ady = grafo.obtenerAdyacentes(vertices.next());
-			while(ady.hasNext()) {
-				if(!solucion.contains(grafo.obtenerTubo(vertices.next(), ady.next()))) {
+			while (ady.hasNext()) {
+				if (!solucion.contains(grafo.obtenerTubo(vertices.next(), ady.next()))) {
 					grafo.borrarTubo(vertices.next(), ady.next());
 				}
 			}
 		}
 	}
 
-	public int calcularLargoTotalDeTunel(Grafo grafo) {
+	private int calcularLargoTotalDeTunel() {
 		int largo = 0;
 
 		for (int i = 0; i < cantEstaciones - 1; i++) {
@@ -109,6 +101,14 @@ public class RedSubte {
 		}
 
 		return largo;
+	}
+
+	public List<Tubo> getSolucion() {
+		return new ArrayList<Tubo>(this.solucion);
+	}
+
+	public int getTotalLargoTunel() {
+		return totalLargoTunel;
 	}
 
 }
