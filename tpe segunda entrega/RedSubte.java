@@ -31,15 +31,6 @@ public class RedSubte {
 			visitados.remove(estacion);
 		}
 
-		/**
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * */
-		borrarArcosInnecesarios();
-
 		return solucion;
 	}
 	
