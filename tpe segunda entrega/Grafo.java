@@ -7,11 +7,9 @@ import java.util.List;
 import java.util.Map.Entry;
 
 public class Grafo {
-    private int numVertices;
     private HashMap<String, List<Tubo>> grafo;
 
-    public Grafo(int numVertices) {
-        this.numVertices = numVertices;
+    public Grafo() {
         this.grafo = new HashMap<>();
     }
     
@@ -27,10 +25,6 @@ public class Grafo {
         Tubo tubo2 = new Tubo(estacion2, estacion1, distancia);
         grafo.get(estacion1).add(tubo1);
         grafo.get(estacion2).add(tubo2);
-    }
-
-    public int getNumVertices() {
-        return numVertices;
     }
     
     public Iterator<String> obtenerVertices() {
