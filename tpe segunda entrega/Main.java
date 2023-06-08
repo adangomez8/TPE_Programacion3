@@ -25,9 +25,6 @@ public class Main {
 		grafo.addTubo("Ayacucho", "Mar del Plata", 150);
 		grafo.addTubo("Balcarce", "Mar del Plata", 74);
 		
-		
-		System.out.println("Cantidad de tubos: " + grafo.cantidadTubos());
-		System.out.println();
 		RedSubte redSubte = new RedSubte(grafo);
 		redSubte.construirRedSubte();
 		
@@ -35,8 +32,6 @@ public class Main {
 			System.out.println(tubo);
 		}
 		
-		System.out.println();
-		System.out.println("Cantidad de tubos: " + grafo.cantidadTubos());
 		
 	}
 
