@@ -24,12 +24,6 @@ public class RedSubte {
 
 	public List<Tubo> construirRedSubte() {
 
-		/*Iterator<String> itEstaciones = grafo.obtenerVertices();
-		String estacion = itEstaciones.next();*/
-
-		/*Iterator<String> itAdy = grafo.obtenerAdyacentes(estacion);
-		String adyacente = itAdy.next();*/
-
 		for (Iterator<String> itEstaciones = grafo.obtenerVertices(); itEstaciones.hasNext();) {
 			String estacion = itEstaciones.next();
 			Iterator<String> itAdy = grafo.obtenerAdyacentes(estacion);
