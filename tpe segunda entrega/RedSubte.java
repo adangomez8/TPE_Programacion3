@@ -26,10 +26,8 @@ public class RedSubte {
 
 		for (Iterator<String> itEstaciones = grafo.obtenerVertices(); itEstaciones.hasNext();) {
 			String estacion = itEstaciones.next();
-			Iterator<String> itAdy = grafo.obtenerAdyacentes(estacion);
-			String adyacente = itAdy.next();
 			visitados.add(estacion);
-			backtracking(estacion, adyacente);
+			backtracking(estacion);
 			visitados.remove(estacion);
 		}
 
@@ -44,31 +42,36 @@ public class RedSubte {
 
 		return solucion;
 	}
+	
+	private void backtracking(String primeraEstacion) {
 
-	private void backtracking(String primeraEstacion, String siguienteEstacion) {
-
-		if (visitados.size() == cantEstaciones && !primeraEstacion.equals(siguienteEstacion)) {
+		if (visitados.size() == cantEstaciones) {
 			int largoTunel = calcularLargoTotalDeTunel();
 			if (totalLargoTunel == -1 || largoTunel < totalLargoTunel) {
 				totalLargoTunel = largoTunel;
 				solucion = new ArrayList<>(recorrido);
 			}
 		} else {
+			/**
+			 * PODA
+			 */
+			if (!recorrido.isEmpty() || calcularLargoTotalDeRecorrido(recorrido) > totalLargoTunel) {
 
-			Iterator<String> itAdy = grafo.obtenerAdyacentes(siguienteEstacion);
-			while (itAdy.hasNext()) {
-				String ady = itAdy.next();
-				if (!visitados.contains(ady)) {
-					visitados.add(ady);
-					Tubo tubo = grafo.obtenerTubo(primeraEstacion, ady);
-					recorrido.add(tubo);
-					backtracking(primeraEstacion, ady);
-					visitados.remove(ady);
-					recorrido.remove(recorrido.size() - 1);
+				Iterator<String> itAdy = grafo.obtenerAdyacentes(primeraEstacion);
+				while (itAdy.hasNext()) {
+					String ady = itAdy.next();
+					if (!visitados.contains(ady)) {
+						visitados.add(ady);
+						Tubo tubo = grafo.obtenerTubo(primeraEstacion, ady);
+						recorrido.add(tubo);
+						backtracking(ady);
+						visitados.remove(ady);
+						recorrido.remove(recorrido.size() - 1);
+					}
 				}
 			}
-
 		}
+
 	}
 
 	private void borrarArcosInnecesarios() {
@@ -86,11 +89,16 @@ public class RedSubte {
 	}
 
 	private int calcularLargoTotalDeTunel() {
+
+		return calcularLargoTotalDeRecorrido(solucion);
+	}
+
+	private int calcularLargoTotalDeRecorrido(List<Tubo> lista) {
 		int largo = 0;
 
-		for (int i = 0; i < cantEstaciones - 1; i++) {
-			String estacion1 = recorrido.get(i).getEstacion1();
-			String estacion2 = recorrido.get(i).getEstacion2();
+		for (int i = 0; i < lista.size(); i++) {
+			String estacion1 = lista.get(i).getEstacion1();
+			String estacion2 = lista.get(i).getEstacion2();
 			largo += grafo.getDistanciaTubo(estacion1, estacion2);
 		}
 
