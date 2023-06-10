@@ -108,4 +108,15 @@ public class Grafo {
 		}
 		return totalArcos;
 	}
+	
+	public Iterator<Tubo> obtenerTubos(String estacion) {
+
+		List<Tubo> tubos = new ArrayList<>();
+		for(Entry<String, List<Tubo>> entry : grafo.entrySet()){
+			if(entry.getKey().equals(estacion)) {
+				tubos.addAll(entry.getValue());
+			}
+		}
+		return tubos.iterator();
+	}
 }

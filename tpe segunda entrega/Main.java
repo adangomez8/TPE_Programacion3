@@ -25,14 +25,25 @@ public class Main {
 		grafo.addTubo("Ayacucho", "Mar del Plata", 150);
 		grafo.addTubo("Balcarce", "Mar del Plata", 74);
 		
-		RedSubte redSubte = new RedSubte(grafo);
-		redSubte.construirRedSubte();
-		
-		for(Tubo tubo : redSubte.getSolucion()) {
+		RedSubteBacktracking redSubteBacktracking = new RedSubteBacktracking(grafo);
+		redSubteBacktracking.construirRedSubte();
+		/*
+		System.out.println("Backtracking");
+		for(Tubo tubo : redSubteBacktracking.getSolucion()) {
 			System.out.println(tubo);
 		}
-		
-		
+		System.out.println("Distancia total: " + redSubteBacktracking.getTotalLargoTunel());
+		*/
+		System.out.println();
+		RedSubteGreedy redSubteGreedy = new RedSubteGreedy(grafo);
+		redSubteGreedy.construirRedSubte();
+
+		System.out.println("Greedy");
+		for(Tubo tubo : redSubteGreedy.getSolucion()) {
+			System.out.println(tubo);
+		}
+		System.out.println("Distancia total: " + redSubteGreedy.getTotalLargoTunel());
+
 	}
 
 }
