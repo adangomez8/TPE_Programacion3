@@ -1,4 +1,4 @@
-package tpe;
+package tp;
 
 public class Tubo {
 	

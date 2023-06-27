@@ -1,4 +1,4 @@
-package tpe;
+package tp;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -60,6 +60,8 @@ public class RedSubteGreedy {
 		this.totalLargoTunel = this.calcularLargoTotalDeTunel();
 	}
 
+
+
 	public List<Tubo> getSolucion() {
 		return new ArrayList<Tubo>(this.solucion);
 	}
@@ -88,6 +90,71 @@ public class RedSubteGreedy {
 		}
 
 
+	}
+	
+	public int greedyMoli() {
+		
+		ArrayList<String>candidatos= new ArrayList<String>();
+		ArrayList<String>visitados= new ArrayList<String>();
+
+		Iterator<String>itEstacion= grafo.obtenerVertices();
+		
+		while(itEstacion.hasNext()) {
+			candidatos.add(itEstacion.next());
+		}
+		
+		while(!candidatos.isEmpty()) {
+			Tubo tubo= obtenerTuboMasCorto(candidatos.get(0));
+			//Iterator<String>adya= grafo.obtenerAdyacentes(candidatos.get(0));
+			if(!solucion.contains(tubo)&& !visitados.contains(tubo.getEstacion2())){
+				solucion.add(tubo);
+				visitados.add(tubo.getEstacion1());
+				visitados.add(tubo.getEstacion2());
+				
+			}
+			candidatos.remove(0);
+		}
+		int resultado=calcularLargoTotalDeRecorrido();
+		
+		return resultado;
+	}
+	
+	private Tubo obtenerTuboMasCorto(String estacion) {
+
+		int distancia = -1;
+		Tubo tubo = null;
+		
+		Iterator<String>adyacentes= grafo.obtenerAdyacentes(estacion);
+		
+		while(adyacentes.hasNext()) {
+			String adya=adyacentes.next();
+			Tubo t=grafo.obtenerTubo(estacion, adya);
+			t.getDistancia();
+			
+			if (distancia == -1 || t.getDistancia() < distancia) {
+				distancia = t.getDistancia();
+				tubo = t;
+			}
+		}
+
+		return tubo;
+		/*for (Iterator<Tubo> tubosEstacion = grafo.obtenerTubos(estacion);tubosEstacion.hasNext()) {
+
+			Tubo tuboIt = tubosEstacion.next();*/
+
+	}
+
+	
+	public int calcularLargoTotalDeRecorrido() {
+		int largo = 0;
+
+		for (int i = 0; i < solucion.size(); i++) {
+			String estacion1 = solucion.get(i).getEstacion1();
+			String estacion2 = solucion.get(i).getEstacion2();
+			largo += grafo.getDistanciaTubo(estacion1, estacion2);
+		}
+
+		return largo;
 	}
 
 }

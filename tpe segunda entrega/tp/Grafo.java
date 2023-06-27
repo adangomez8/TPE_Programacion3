@@ -1,4 +1,4 @@
-package tpe;
+package tp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -108,7 +108,7 @@ public class Grafo {
 		}
 		return totalArcos;
 	}
-	
+
 	public Iterator<Tubo> obtenerTubos(String estacion) {
 
 		List<Tubo> tubos = new ArrayList<>();
