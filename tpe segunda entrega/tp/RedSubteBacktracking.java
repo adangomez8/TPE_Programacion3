@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class RedSubte {
+public class RedSubteBacktracking {
 
 	private Grafo grafo;
 	private int cantEstaciones;
@@ -13,13 +13,16 @@ public class RedSubte {
 	private List<Tubo> solucion;
 	private int totalLargoTunel;
 
-	public RedSubte(Grafo grafo) {
+	private int iteraciones;
+
+	public RedSubteBacktracking(Grafo grafo) {
 		this.grafo = grafo;
 		this.cantEstaciones = grafo.cantidadVertices();
 		this.visitados = new ArrayList<>();
 		this.recorridoCompleto = new ArrayList<>();
 		this.solucion = new ArrayList<>();
 		this.totalLargoTunel = -1;
+		this.iteraciones = 0;
 	}
 
 	public List<Tubo> construirRedSubte() {
@@ -36,10 +39,10 @@ public class RedSubte {
 
 	private void backtracking(String primeraEstacion) {
 
+		this.iteraciones++;
 		if (recorridoCompleto.size() == cantEstaciones) {
 
 			if(seRecorrieronTodLosVertices()){
-				//borrarTubosRepetidos();
 				if(solucion.isEmpty()) {
 					solucion=new ArrayList<>(generarRecorrido());
 					this.setTotalLargoTunel(this.calcularLargoTotalDeTunel());
@@ -132,8 +135,12 @@ public class RedSubte {
 		return totalLargoTunel;
 	}
 
-	public void setTotalLargoTunel(int totalLargoTunel) {
+	private void setTotalLargoTunel(int totalLargoTunel) {
 		this.totalLargoTunel = totalLargoTunel;
+	}
+
+	public int getIteraciones(){
+		return this.iteraciones;
 	}
 
 	private ArrayList<String>obtenerVertices(){
@@ -144,4 +151,6 @@ public class RedSubte {
 		}
 		return vertice;
 	}
+
+
 }

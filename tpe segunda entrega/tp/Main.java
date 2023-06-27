@@ -1,13 +1,11 @@
 package tp;
 
 
-import java.util.List;
-
 public class Main {
 
 	public static void main(String[] args) {
 		
-		String path = "Dataset/dataset2.txt";
+		String path = "Dataset/dataset1.txt";
 		CSVReader reader = new CSVReader(path);
 
 		Grafo grafo = new Grafo();
@@ -15,13 +13,14 @@ public class Main {
 		reader.read(grafo);
 
 		System.out.println("Backtracking");
-		RedSubte redSubte = new RedSubte(grafo);
+		RedSubteBacktracking redSubte = new RedSubteBacktracking(grafo);
 		redSubte.construirRedSubte();
 		
 		for(Tubo tubo : redSubte.getSolucion()) {
 			System.out.println(tubo);
 		}
-		System.out.println(redSubte.getTotalLargoTunel());
+		System.out.println("Distancia: " + redSubte.getTotalLargoTunel());
+		System.out.println("Métrica: " + redSubte.getIteraciones());
 
 		System.out.println();
 
@@ -32,8 +31,8 @@ public class Main {
 		for(Tubo tubo : redSubteGreedy.getSolucion()) {
 			System.out.println(tubo);
 		}
-		System.out.println(redSubteGreedy.getTotalLargoTunel());
-		
+		System.out.println("Distancia: " + redSubteGreedy.getTotalLargoTunel());
+		System.out.println("Métrica: " + redSubteGreedy.getIteraciones());
 		
 	}
 
