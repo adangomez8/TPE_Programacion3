@@ -40,21 +40,18 @@ public class RedSubteGreedy {
 		candidatos.remove(estacionInicial);
 
 		while (!candidatos.isEmpty()) {
+			this.iteraciones++;
 			Tubo tuboMasCorto = null;
 			String estacionDestino = null;
 
 			for (String estacionVisitada : visitados) {
-				this.iteraciones++;
 				for (String estacionNoVisitada : candidatos) {
-					this.iteraciones++;
 					Tubo tubo = grafo.obtenerTubo(estacionVisitada, estacionNoVisitada);
-					if(grafo.existeTubo(tubo.getEstacion1(), tubo.getEstacion2())){
 						if (tuboMasCorto == null || tubo.getDistancia() < tuboMasCorto.getDistancia()) {
 							tuboMasCorto = tubo;
 							estacionDestino = estacionNoVisitada;
 						}
 					}
-				}
 			}
 			solucion.add(tuboMasCorto);
 			visitados.add(estacionDestino);
