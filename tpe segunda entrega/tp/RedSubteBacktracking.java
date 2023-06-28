@@ -58,22 +58,16 @@ public class RedSubteBacktracking {
 			}
 
 	} else {
-			/**
-			 * PODA
-			 */
-			if (visitados.size()!=cantEstaciones+1 || calcularLargoTotalDeRecorrido(recorridoCompleto) > totalLargoTunel) {
+			Iterator<String> itAdy = grafo.obtenerAdyacentes(primeraEstacion);
+			while (itAdy.hasNext()) {
+				String ady = itAdy.next();
+				Tubo tubo = grafo.obtenerTubo(primeraEstacion, ady);
+				visitados.add(ady);
+				recorridoCompleto.add(tubo);
+				backtracking(ady);
+				visitados.remove(ady);
+				recorridoCompleto.remove(recorridoCompleto.size() - 1);
 
-				Iterator<String> itAdy = grafo.obtenerAdyacentes(primeraEstacion);
-				while (itAdy.hasNext()) {
-					String ady = itAdy.next();
-					Tubo tubo = grafo.obtenerTubo(primeraEstacion, ady);
-					visitados.add(ady);
-					recorridoCompleto.add(tubo);
-					backtracking(ady);
-					visitados.remove(ady);
-					recorridoCompleto.remove(recorridoCompleto.size() - 1);
-
-				}
 			}
 		}
 

@@ -5,7 +5,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		String path = "Dataset/dataset1.txt";
+		String path = "Dataset/dataset2.txt";
 		CSVReader reader = new CSVReader(path);
 
 		Grafo grafo = new Grafo();
