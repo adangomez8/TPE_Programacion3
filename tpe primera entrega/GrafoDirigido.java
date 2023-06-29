@@ -30,6 +30,14 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	public void borrarVertice(int verticeId) {
 
 			grafo.remove(verticeId);
+
+		for (Iterator<Arco<T>> it = obtenerArcos(); it.hasNext(); ) {
+			Arco arco = it.next();
+			if(arco.getVerticeOrigen()==verticeId || arco.getVerticeDestino()==verticeId){
+				borrarArco(arco.getVerticeOrigen(), arco.getVerticeDestino());
+			}
+		}
+
 	}
 
 	/**
