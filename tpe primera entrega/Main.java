@@ -6,7 +6,42 @@ public class Main {
 
     public static void main(String[] args) {
 
-        GrafoDirigido<String> gd = new GrafoDirigido<>();
+        GrafoDirigido gd = new GrafoDirigido<>();
+
+        gd.agregarVertice(3);
+        gd.agregarVertice(5);
+        gd.agregarVertice(7);
+        gd.agregarVertice(4);
+        gd.agregarVertice(15);
+        gd.agregarVertice(18);
+        gd.agregarVertice(10);
+
+        gd.agregarArco(3, 5, null);
+        gd.agregarArco(5, 15, null);
+        gd.agregarArco(5, 10, null);
+        gd.agregarArco(15, 10, null);
+        gd.agregarArco(3, 7, null);
+        gd.agregarArco(7, 18, null);
+        gd.agregarArco(18, 10, null);
+        gd.agregarArco(3, 4, null);
+        gd.agregarArco(4, 7, null);
+        gd.agregarArco(3, 10, null);
+        gd.agregarArco(7, 3, null);
+
+        System.out.print("Arcos del vértice 3: ");
+        Iterator<Arco<String>> iteradorArcosDelVertice3 = gd.obtenerArcos(3);
+        while (iteradorArcosDelVertice3.hasNext()) {
+            System.out.print(iteradorArcosDelVertice3.next() + " ");
+        }
+        System.out.println();
+
+        gd.borrarVertice(5);
+
+        System.out.print("Arcos del vértice 3: ");
+        Iterator<Arco<String>> iteradorArcosDelVertice3DespuesDeSerBorrado = gd.obtenerArcos(3);
+        while (iteradorArcosDelVertice3DespuesDeSerBorrado.hasNext()) {
+            System.out.print(iteradorArcosDelVertice3DespuesDeSerBorrado.next() + " ");
+        }
 
         /*gd.agregarVertice(16);
         gd.agregarVertice(34);
@@ -122,28 +157,10 @@ public class Main {
         ServicioBFS bfs = new ServicioBFS(gd);
         System.out.println("Servicio Breadth First Search: " + bfs.bfsForest());*/
 
-        gd.agregarVertice(3);
-        gd.agregarVertice(5);
-        gd.agregarVertice(7);
-        gd.agregarVertice(4);
-        gd.agregarVertice(15);
-        gd.agregarVertice(18);
-        gd.agregarVertice(10);
 
-        gd.agregarArco(3, 5, null);
-        gd.agregarArco(5, 15, null);
-        gd.agregarArco(5, 10, null);
-        gd.agregarArco(15, 10, null);
-        gd.agregarArco(3, 7, null);
-        gd.agregarArco(7, 18, null);
-        gd.agregarArco(18, 10, null);
-        gd.agregarArco(3, 4, null);
-        gd.agregarArco(4, 7, null);
-        gd.agregarArco(3, 10, null);
-        gd.agregarArco(7, 3, null);
 
-        ServicioCaminos sc = new ServicioCaminos(gd, 3, 5, 3);
+        /*ServicioCaminos sc = new ServicioCaminos(gd, 3, 5, 3);
 
-        System.out.println(sc.caminos());
+        System.out.println(sc.caminos());*/
     }
 }

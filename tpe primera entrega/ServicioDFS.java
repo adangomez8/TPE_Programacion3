@@ -1,42 +1,61 @@
 package Programacion3.src.tpe;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.HashMap;
+
+
 public class ServicioDFS {
+
 	private Grafo<?> grafo;
-	public ServicioDFS(Grafo grafo) {
+	private ArrayList<Integer>marcado;
+	private HashMap<Integer,String>color;
+
+	public ServicioDFS(Grafo<?> grafo) {
 		this.grafo = grafo;
+		marcado= new ArrayList<>();
+		color= new HashMap<>();
 	}
+
 	public List<Integer> dfsForest() {
+		Iterator<Integer>iterVert= grafo.obtenerVertices();
 
-		return dfs(this.grafo);
-	}
+		while(iterVert.hasNext()) {
+			int v=iterVert.next();
+			color.put(v, "BLANCO");
+		}
 
-	/**
-	 * Complejidad: O(|V|+|A|) debido a que pasa una vez por cada vértice, y como mucho una vez cada arco
-	 * */
-	public List<Integer> dfs(Grafo<?> grafo) {
-		Set<Integer> visitados = new HashSet<>();//AMARILLO
-		List<Integer> resultado = new ArrayList<>();//NEGRO
-
-		for (Iterator<Integer> it = grafo.obtenerVertices(); it.hasNext(); ) {
-			Integer vertice = it.next();
-			if (!visitados.contains(vertice)) {
-				dfsVisit(grafo, vertice, visitados, resultado);
+		for (Integer v : color.keySet()) {
+			if(color.get(v).equals("BLANCO")) {
+				dfsVisit(v);
 			}
 		}
-		Collections.reverse(resultado); // Invertir el orden para obtener el orden topológico
-		return resultado;
+
+		return marcado;
 	}
 
-	private void dfsVisit(Grafo<?> grafo, Integer vertice, Set<Integer> visitados, List<Integer> resultado) {
+	private ArrayList<Integer> dfsVisit(int v) {
+		color.put(v, "AMARILLO");
+		marcado.add(v);
 
-		visitados.add(vertice);
+		Iterator<Integer>iterAdya= grafo.obtenerAdyacentes(v);
 
-		for (Iterator<Integer> it = grafo.obtenerAdyacentes(vertice); it.hasNext(); ) {
-			Integer adyacenteDelVertice = it.next();
-			if (!visitados.contains(adyacenteDelVertice)) {
-				dfsVisit(grafo, adyacenteDelVertice, visitados, resultado);
+		while(iterAdya.hasNext()) {
+			int ver=iterAdya.next();
+			if(!marcado.contains(ver)) {
+				if(color.get(ver).equals("BLANCO")) {
+					dfsVisit(ver);
+				}
+				else {
+					if(color.get(ver).equals("AMARILLO")) {
+						System.out.println("There is a cicle");
+					}
+				}
 			}
 		}
-		resultado.add(vertice);
+		color.put(v, "NEGRO");
+		return marcado;
 	}
+
 }

@@ -4,9 +4,9 @@ import java.util.*;
 
 public class ServicioBFS {
 
-	private Grafo<?> grafo;
+	private Grafo grafo;
 
-	public ServicioBFS(Grafo<?> grafo) {
+	public ServicioBFS(Grafo grafo) {
 		this.grafo = grafo;
 	}
 
@@ -19,7 +19,7 @@ public class ServicioBFS {
 	 * Complejidad: O(|V|+|A|) debido a que pasa una vez por cada vértice, y como mucho una vez cada arco
 	 * */
 
-	private List<Integer> bfsForest(Grafo<?> grafo){
+	private List<Integer> bfsForest(Grafo grafo){
 
 		//HASHSET
 		HashSet<Integer> noVisitados = new HashSet<>();
@@ -38,7 +38,7 @@ public class ServicioBFS {
 		return resultado;
 	}
 
-	private List<Integer> bfs(Grafo<?> grafo, Integer v, HashSet<Integer> noVisitados) {
+	private List<Integer> bfs(Grafo grafo, Integer v, HashSet<Integer> noVisitados) {
 
 		List<Integer> visitados = new ArrayList<>();
 
