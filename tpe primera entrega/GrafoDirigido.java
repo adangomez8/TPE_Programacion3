@@ -24,7 +24,8 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	}
 
 	/**
-	 * Complejidad: O(1) porque es independiente a la cantidad de vértices que tenga el grafo
+	 * Complejidad: O(n) porque al borrar cualquier vértice debe recorrer todos los arcos y si alguno contiene el vértice
+	 * borrado también debe ser borrado
 	 * */
 	@Override
 	public void borrarVertice(int verticeId) {
